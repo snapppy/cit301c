@@ -35,3 +35,12 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+# angular 2 files to ignore
+system-config.js*
+app/**/*.js
+app/**/*.map
+bower_components
+aut/*
+dist/*
+yarn.lock
