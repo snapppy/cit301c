@@ -1,0 +1,15 @@
+<!--<cms-contact-list></cms-contact-list>-->
+<div class="row">
+  <div class="col-md-4 col-md-offset-2">
+    <cms-contact-list (contactSelected)="selectedContact = $event"></cms-contact-list>
+  </div>
+  <div class="col-md-4">
+    <cms-contacts-detail [selectedContact]="selectedContact"></cms-contacts-detail>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4 col-md-offset-6">
+    <cms-contacts-group [selectedContact]="selectedContact"></cms-contacts-group>
+  </div>
+</div>
+

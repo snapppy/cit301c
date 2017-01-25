@@ -1,0 +1,33 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-xs-8">
+        <h4>Contacts</h4>
+      </div>
+      <div class="col-xs-4">
+        <a class="btn btn-success">New Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body">
+    <cms-contact-item [contact]="contact" (click)="onSelected(contact)"></cms-contact-item>
+  </div>
+</div>
+
+
+<!--
+<div class="row">
+  <div class="col-xs-12">
+    <title>Contacts</title>
+    <a class="btn btn-success">New Contact</a>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <ul class="list-group">
+      <cms-contact-item ></cms-contact-item>
+    </ul>
+  </div>
+</div>
+-->
+
