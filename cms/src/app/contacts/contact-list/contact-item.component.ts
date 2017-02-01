@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Contact } from '../contact';
+
+import { Contact } from "../contact";
+
 @Component({
   selector: 'cms-contact-item',
   templateUrl: './contact-item.component.html'
@@ -11,6 +13,11 @@ export class ContactItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-  }
 
+  }
 }
+
+
+
+
+

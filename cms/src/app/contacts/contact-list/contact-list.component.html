@@ -10,9 +10,11 @@
     </div>
   </div>
   <div class="panel-body">
-    <cms-contact-item [contact]="contact" (click)="onSelected(contact)"></cms-contact-item>
+    <cms-contact-item *ngFor="let contact of contacts" [contact]="contact" (click)="onSelected(contact)"></cms-contact-item>
   </div>
 </div>
+
+<!--*ngFor="let contact of contacts"-->
 
 
 <!--

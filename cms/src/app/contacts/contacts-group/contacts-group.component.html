@@ -7,6 +7,6 @@
     </span>
   </div>
   <div class="panel-body">
-    <cms-contact-item></cms-contact-item>
+    <cms-contact-item *ngFor="let contact of contactGroup" [contact]="contact"></cms-contact-item>
   </div>
 </div>

@@ -6,9 +6,15 @@ import { Contact } from '../contact';
 })
 export class ContactsGroupComponent implements OnInit {
   @Input() selectedContact: Contact;
+  contactGroup: Contact[] = [];
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  ngOnChanges() {
+    this.contactGroup = this.selectedContact.group;
   }
 
 }

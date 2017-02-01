@@ -7,7 +7,8 @@ import { Contact } from "../contact";
 })
 export class ContactsDetailComponent implements OnInit {
   @Input() selectedContact: Contact;
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
