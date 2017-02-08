@@ -1,0 +1,24 @@
+
+
+.center-panel {
+  margin-left: auto;
+  margin-right: auto;
+  width: 21rem;
+
+}
+
+.resourcesDiv {
+  position: relative;
+  left: 0rem;
+  width:30%;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.pad-left-right{
+  padding-left:1rem;
+  padding-right:1rem;
+}
