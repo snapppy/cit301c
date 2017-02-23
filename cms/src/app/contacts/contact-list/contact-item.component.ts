@@ -8,6 +8,7 @@ import { Contact } from "../contact";
 })
 export class ContactItemComponent implements OnInit {
   @Input() contact: Contact;
+  @Input() contactIdx: number;
   contactId: number;
 
   constructor() { }

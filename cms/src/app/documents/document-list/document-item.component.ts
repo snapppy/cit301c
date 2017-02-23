@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class DocumentItemComponent implements OnInit {
   @Input() document;
+  @Input() documentIdx: number;
   constructor() { }
 
   ngOnInit() {
