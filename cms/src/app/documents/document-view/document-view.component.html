@@ -1,0 +1,14 @@
+<div class="panel panel-default col-md-4" >
+  <div class="panel-body">
+    <div class="row pad-all">
+      <div class="title">{{document?.name}}</div>
+      <div class="row pad-left-right">
+        <button class="btn btn-primary" (click)="onView()">View</button>
+        <button [routerLink]="['edit']" class="btn btn-info">Edit</button>
+        <button class="btn btn-danger" (click)="onDelete()">Delete</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
