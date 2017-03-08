@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-body">
 
-    <form id="contact-edit" (ngSubmit)="onSubmit(f.value)" #f="ngForm">
+    <form id="contact-edit">
       <div class="row">
         <div class="col-sm-12 form-group">
           <label for="name">Name</label>
@@ -10,12 +10,7 @@
             id="name"
             class="form-control"
             size="120"
-            max="120"
-            name="name"
-            required
-            [ngModel]="contact?.name"
-            #name="ngModel">
-          <div class="alert alert-danger" *ngIf="name.dirty && !name.valid">Please enter a valid name</div>
+            max="120">
         </div>
 
         <div class="col-sm-12 form-group">
@@ -25,12 +20,7 @@
             id="email"
             class="form-control"
             size="120"
-            max="255"
-            name="email"
-            pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
-            [ngModel]="email.text"
-            #email="ngModel">
-          <div class="alert alert-danger" *ngIf="email.dirty && !email.valid">Please enter a valid email</div>
+            max="255">
         </div>
 
         <div class="col-sm-12 form-group">
@@ -40,10 +30,7 @@
             id="phone"
             class="form-control"
             size="150"
-            max="255"
-            name="phone"
-            [ngModel]="phone.text"
-            #phone="ngModel">
+            max="255">
         </div>
 
         <div class="col-sm-12 form-group">
@@ -53,10 +40,7 @@
             id="imageUrl"
             class="form-control"
             size="150"
-            max="255"
-            name="imageUrl"
-            [ngModel]="imageUrl.text"
-            #imageUrl="ngModel">
+            max="255">
         </div>
       </div>
 
@@ -67,9 +51,7 @@
         </div>
 
         <div class="row" id="groupList"
-             style="min-height: 3rem;"
-              dnd-droppable [dropZones]="['demo1']"
-              (onDropSuccess)="addToGroup($event)">
+             style="min-height: 3rem;">
           <div *ngFor="let contact of groupContacts; let i = index">
             <div>
               <cms-contact-group-item class="col-sm-11" [contact]="contact"></cms-contact-group-item>
@@ -81,7 +63,7 @@
       </div>
 
       <div class="col-sm-12" [ngStyle]="{'margin-top': '1rem'}">
-        <button class="btn btn-success" type="submit" [disabled]="!f.valid">Save</button>
+        <button class="btn btn-success" type="submit">Save</button>
         <button class="btn btn-primary" type="button" (click)="onCancel()">Cancel</button>
       </div>
 

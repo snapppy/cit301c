@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-body">
 
-    <form id="document-edit" (ngSubmit)="onSubmit(f.value)" #f="ngForm">
+    <form id="document-edit">
       <div class="row">
 
         <div class="col-sm-12 form-group">
@@ -11,13 +11,7 @@
             id="name"
             class="form-control"
             size="120"
-            max="120"
-            required
-            name="name"
-            [ngModel]="oldDocument?.name"
-            #name="ngModel"
-          >
-          <div class="alert alert-danger" *ngIf="name.dirty && !name.valid">Please enter a valid name</div>
+            max="120">
         </div>
 
         <div class="col-sm-12 form-group">
@@ -27,9 +21,7 @@
             id="description"
             class="form-control"
             size="120"
-            max="255"
-            name="description"
-            [ngModel]="oldDocument?.description">
+            max="255">
         </div>
 
         <div class="col-sm-12 form-group">
@@ -39,18 +31,13 @@
             id="documentUrl"
             class="form-control"
             size="150"
-            max="255"
-            required
-            name="documentUrl"
-            [ngModel]="oldDocument?.url"
-            #documentUrl="ngModel">
-          <div class="alert alert-danger" *ngIf="documentUrl.dirty && !documentUrl.valid">Please enter a valid URL</div>
+            max="255">
         </div>
       </div>
 
       <div class="row">
         <div class="col-xs-12">
-          <button class="btn btn-success" type="submit" [disabled]="!f.valid">Save</button>
+          <button class="btn btn-success" type="submit">Save</button>
           <button class="btn btn-primary" type="button" (click)="onCancel()">Cancel</button>
         </div>
       </div>

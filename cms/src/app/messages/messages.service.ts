@@ -16,4 +16,8 @@ export class MessagesService {
     return this.messages[index];
   }
 
+  addMessage(message: Message) {
+    this.messages.push(message);
+  }
+
 }

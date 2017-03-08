@@ -4,8 +4,10 @@ import {Contact} from "./contact";
 @Injectable()
 export class ContactsService {
   private contacts: Contact[] = [];
+  private currentContact: Contact;
   constructor() {
     this.contacts = this.getContacts();
+    this.currentContact = new Contact("18", "James", "email@email.com", "883-323-2342", "../../images/me.jpg", null);
   }
 
   getContact(index: number) {
@@ -67,5 +69,38 @@ export class ContactsService {
       return 1;
     return 0;
 
+  }
+
+  getCurrentContact() {
+    return this.currentContact;
+  }
+
+  addContact(contact: Contact) {
+    if (!contact)
+      return;
+    this.contacts.push(contact);
+    this.contacts = this.contacts.sort(this.compareNames);
+  }
+
+  updateContact(oldContact: Contact, newContact: Contact) {
+    if (!oldContact || !newContact) {
+      return;
+    }
+    this.contacts[this.contacts.indexOf(oldContact)] =newContact;
+    this.contacts = this.contacts.sort(this.compareNames);
+  }
+
+  deleteContact(contact: Contact) {
+    if (!contact) {
+      return;
+    }
+
+    const pos = this.contacts.indexOf(contact);
+    if (pos < 0) {
+      return;
+    }
+
+    this.contacts.splice(pos, 1);
+    this.contacts = this.contacts.sort(this.compareNames);
   }
 }
