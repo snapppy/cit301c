@@ -50,7 +50,7 @@ export class ContactEditComponent implements OnInit, OnDestroy {
 
   onSubmit(value) {
     let newContact = new Contact(
-      String(this.contactIdx),
+      null,
       value.name,
       value.email,
       value.phone,
@@ -58,7 +58,7 @@ export class ContactEditComponent implements OnInit, OnDestroy {
       this.groupContacts);
 
     if (this.editMode) {
-      newContact.contactId = this.contactsService.getContact(this.contactIdx).contactId;
+      newContact.contactId = this.contact.contactId;
       this.contactsService.updateContact(this.contact, newContact);
     } else {
       this.contactsService.addContact(newContact);
