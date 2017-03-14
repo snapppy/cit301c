@@ -25,6 +25,7 @@ export class DocumentEditComponent implements OnInit {
         if (params.hasOwnProperty('idx')) {
           this.oldDocument = this.documentsService.getDocument(params['idx']);
           this.editMode = true;
+          console.log(params['idx']);
         } else {
           this.editMode = false;
           this.oldDocument = null;

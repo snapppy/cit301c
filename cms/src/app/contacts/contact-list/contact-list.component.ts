@@ -10,6 +10,7 @@ import {ContactsService} from "../contacts.service";
 
 export class ContactListComponent implements OnInit {
 
+  private term: string;
 
   @Output() selectedContact = new EventEmitter<Contact>();
   @Input() contact: Contact = null;
@@ -20,10 +21,17 @@ export class ContactListComponent implements OnInit {
 
   ngOnInit() {
     this.contacts = this.contactService.getContacts();
+    this.contactService.contactsChanged.subscribe(
+      (contacts: Contact[]) => this.contacts = contacts
+    );
   }
 
   onSelected(contact: Contact) {
     this.selectedContact.emit(contact);
+  }
+
+  onKeyPress(value: string) {
+    this.term = value;
   }
 
 }

@@ -1,17 +1,24 @@
-import { Injectable } from '@angular/core';
+import {Injectable, EventEmitter} from '@angular/core';
 import {Contact} from "./contact";
+import {Response, Http, Headers} from "@angular/http";
 
 @Injectable()
 export class ContactsService {
   private contacts: Contact[] = [];
   private currentContact: Contact;
-  constructor() {
+  contactsChanged = new EventEmitter<Contact[]>();
+  constructor(private http: Http) {
+    this.initContacts();
     this.contacts = this.getContacts();
     this.currentContact = new Contact("18", "James", "email@email.com", "883-323-2342", "../../images/me.jpg", null);
   }
 
   getContact(index: number) {
     return this.contacts[index];
+  }
+
+  getContactById(index: string): Contact {
+    return this.contacts.find((contact: Contact) => contact.contactId === index);
   }
 
   getContacts() {
@@ -44,15 +51,15 @@ export class ContactsService {
       "../../images/thompsonda.jpg", null);
 
     // group Contacts
-    this.contacts[13] = new Contact("4", "Network/OS team", " ", " ", " ",
+    this.contacts[13] = new Contact("4", "Network/OS team", "", "", "",
       [this.contacts[1], this.contacts[5], this.contacts[8], this.contacts[9]]);
-    this.contacts[14] = new Contact("6", "Software Development team", " ", " ", " ",
+    this.contacts[14] = new Contact("6", "Software Development team", "", "", "",
       [this.contacts[0], this.contacts[2], this.contacts[4], this.contacts[8]]);
-    this.contacts[15] = new Contact("10", "Web Development team", " ", " ", " ",
+    this.contacts[15] = new Contact("10", "Web Development team", "", "", "",
       [this.contacts[10], this.contacts[11], this.contacts[12]]);
-    this.contacts[16] = new Contact("14", "Database team", " ", " ", " ",
+    this.contacts[16] = new Contact("14", "Database team", "", "", "",
       [this.contacts[4], this.contacts[6], this.contacts[7]]);
-    this.contacts[17] = new Contact("18", "Computer Security team", " ", " ", " ",
+    this.contacts[17] = new Contact("18", "Computer Security team", "", "", "",
       [this.contacts[3], this.contacts[5], this.contacts[9]]);
 
     // sort by name
@@ -80,6 +87,7 @@ export class ContactsService {
       return;
     this.contacts.push(contact);
     this.contacts = this.contacts.sort(this.compareNames);
+    this.storeContacts();
   }
 
   updateContact(oldContact: Contact, newContact: Contact) {
@@ -88,6 +96,7 @@ export class ContactsService {
     }
     this.contacts[this.contacts.indexOf(oldContact)] =newContact;
     this.contacts = this.contacts.sort(this.compareNames);
+    this.storeContacts();
   }
 
   deleteContact(contact: Contact) {
@@ -102,5 +111,29 @@ export class ContactsService {
 
     this.contacts.splice(pos, 1);
     this.contacts = this.contacts.sort(this.compareNames);
+    this.storeContacts();
+  }
+
+  initContacts() {
+    return this.http.get('https://jameswcms.firebaseio.com/contacts.json')
+      .map((response: Response) => response.json())
+      .subscribe(
+        (data: Contact[]) => {
+          this.contacts = data;
+          this.currentContact = this.getContactById("7");
+          this.contacts = this.contacts.sort(this.compareNames);
+          this.contactsChanged.emit(this.contacts);
+        }
+
+      );
+  }
+
+  storeContacts() {
+    const body = JSON.stringify(this.contacts);
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    return this.http.put('https://jameswcms.firebaseio.com/contacts.json',
+      body, {headers: headers}).toPromise();
   }
 }
