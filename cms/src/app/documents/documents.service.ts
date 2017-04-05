@@ -11,12 +11,10 @@ export class DocumentsService {
   getDocumentEmitter = new EventEmitter<Document[]>();
   currentDocumentId: string;
   constructor(private http: Http) {
-    /*this.initDocuments();*/
     this.currentDocumentId = '1';
   }
 
   getDocuments() {
-    /*this.documents = MOCKDOCUMENTS;*/
     return this.http.get('http://localhost:3000/documents')
       .map((response: Response) => {
         const documents = response.json().obj;

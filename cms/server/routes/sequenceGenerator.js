@@ -6,7 +6,7 @@ var Sequence = require('../models/sequence');
 
 var maxDocumentId;
 var maxMessageId;
-var maxContactId;
+var maxContactId = 0;
 var sequenceId = null;
 
 function SequenceGenerator() {

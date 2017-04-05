@@ -46,6 +46,9 @@ router.post('/', function (req, res, next) {
       sender: contactId
     });
 
+    console.log("----------------Inside message post --------------");
+    console.log(message);
+
     message.save(function (err, result) {
       response.setHeader('Content-Type', 'application/json');
       if (err) {

@@ -39,6 +39,7 @@ app.use('/', index);
 app.use('/messages', messageRoutes);
 app.use('/contacts', contactRoutes);
 app.use('/documents', documentRoutes);
+
 // Tell express to map all other non-defined routes back to the index page
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));

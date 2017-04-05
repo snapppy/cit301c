@@ -23,14 +23,6 @@ router.post('/', function (req, res, next) {
 
   var maxDocumentId = sequenceGenerator.nextId("documents");
 
-  Contact.findOne({'id': req.body.sender}, {'id': 1}, function (err, documentId) {
-    if (err || !documentId) {
-      return res.status(500).json({
-        title: 'Invalid sender - sender not found',
-        error: err
-      });
-    }
-
     var document = new Document({
       id: maxDocumentId,
       name: req.body.name,
@@ -39,15 +31,14 @@ router.post('/', function (req, res, next) {
     });
 
     document.save(function (err, result) {
-      response.setHeader('Content-Type', 'application/json');
+      res.setHeader('Content-Type', 'application/json');
       if (err) {
-        return response.status(500).json({
+        return res.status(500).json({
           title: 'Error saving document',
           error: err
         });
       }
     });
-  });
 });
 
 router.patch('/:id', function (req, res, next) {
@@ -81,6 +72,10 @@ router.patch('/:id', function (req, res, next) {
 });
 
 router.delete('/:id', function(req, res, next) {
+
+  console.log("---in the delete router file---");
+  console.log(req.params.id);
+
   Document.findById(req.params.id, function (err, document) {
     if (err) {
       return res.status(500).json({
