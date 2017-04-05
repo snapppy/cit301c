@@ -15,6 +15,7 @@ export class DocumentListComponent implements OnInit {
     this.documentsService.getDocuments().subscribe(
       (documents: Document[]) => {
         this.documents = documents;
+        /*this is a change*/
       }
     );
   }
