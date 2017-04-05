@@ -25,6 +25,7 @@ export class ContactEditComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
+
     this.editMode = false;
     this.hasGroup = false;
     this.invalidGroupContact = false;
@@ -32,9 +33,8 @@ export class ContactEditComponent implements OnInit, OnDestroy {
     this.subscription = this.route.params.subscribe(
       (params: any) => {
         if (params.hasOwnProperty('idx')) {
-          this.contact = this.contactsService.getContact(params['idx']);
+          this.contact = this.contactsService.getContactById(params['idx']);
           this.editMode = true;
-
           if ((this.contact.group != null) && (this.contact.group.length > 0)){
             this.hasGroup = true;
             this.groupContacts = this.contact.group.slice();
@@ -61,7 +61,10 @@ export class ContactEditComponent implements OnInit, OnDestroy {
       newContact.contactId = this.contact.contactId;
       this.contactsService.updateContact(this.contact, newContact);
     } else {
-      this.contactsService.addContact(newContact);
+      this.contactsService.addContact(newContact).subscribe(
+        data => console.log(data),
+        error => console.log(error)
+      );
     }
 
     this.router.navigate(['contacts']);
@@ -76,9 +79,10 @@ export class ContactEditComponent implements OnInit, OnDestroy {
       return true;
     }
 
-    if (newContact.contactId === this.contact.contactId) {
+   /* if (this.contact.contactId) {
+      //newContact.contactId ===
       return true;
-    }
+    }*/
 
     for (let i = 0; i < this.groupContacts.length; i++) {
       if (newContact.contactId === this.groupContacts[i].contactId) {

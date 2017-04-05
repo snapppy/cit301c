@@ -10,7 +10,7 @@ export class MessagesService {
   messagesChanged = new EventEmitter<Message[]>();
   constructor(private http: Http) {
 
-    this.initMessages();
+    /*this.initMessages();*/
   }
 
   getMessages() {
@@ -24,28 +24,28 @@ export class MessagesService {
 
   addMessage(message: Message) {
     this.messages.push(message);
-    this.storeMessages();
+    /*this.storeMessages();*/
   }
 
-  initMessages() {
-    return this.http.get('https://jameswcms.firebaseio.com/messages.json')
-      .map((response: Response) => response.json())
-      .subscribe(
-        (data: Message[]) => {
-          this.messages = data;
-          this.messagesChanged.emit(this.messages);
-        }
+  // /*initMessages() {
+  //   return this.http.get('https://jameswcms.firebaseio.com/messages.json')
+  //     .map((response: Response) => response.json())
+  //     .subscribe(
+  //       (data: Message[]) => {
+  //         this.messages = data;
+  //         this.messagesChanged.emit(this.messages);
+  //       }
+  //
+  //     );
+  // }*/
 
-      );
-  }
-
-  storeMessages() {
+  /*storeMessages() {
     const body = JSON.stringify(this.messages);
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
     return this.http.put('https://jameswcms.firebaseio.com/messages.json',
       body, {headers: headers}).toPromise();
-  }
+  }*/
 
 }

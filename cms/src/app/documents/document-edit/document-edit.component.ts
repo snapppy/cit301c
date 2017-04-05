@@ -20,7 +20,9 @@ export class DocumentEditComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.subscription = this.route.params.subscribe(
+
+    this.subscription = this.documentsService.getDocuments().subscribe();
+    /*this.subscription = this.route.params.subscribe(
       (params: any) => {
         if (params.hasOwnProperty('idx')) {
           this.oldDocument = this.documentsService.getDocument(params['idx']);
@@ -31,7 +33,8 @@ export class DocumentEditComponent implements OnInit {
           this.oldDocument = null;
         }
       }
-    );
+    );*/
+
   }
 
   ngOnDestroy() {

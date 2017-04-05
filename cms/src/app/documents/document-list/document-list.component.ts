@@ -11,9 +11,11 @@ export class DocumentListComponent implements OnInit {
   constructor(private documentsService: DocumentsService) { }
 
   ngOnInit() {
-    this.documents = this.documentsService.getDocuments();
-    this.documentsService.getDocumentEmitter.subscribe(
-      (documents: Document[]) => this.documents = documents
+    /*this.documents = this.documentsService.getDocuments();*/
+    this.documentsService.getDocuments().subscribe(
+      (documents: Document[]) => {
+        this.documents = documents;
+      }
     );
   }
 

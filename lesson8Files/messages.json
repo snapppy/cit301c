@@ -1,0 +1,23 @@
+[
+	{
+		"_id": ObjectId("58c42950c4044df709595577"),
+		"id": "1",
+		"subject": "Assignment 2",
+		"text": "Assignment 2 is due tomorrow",
+		"sender": ObjectId("58c767386f1d58ebc37af1ec")
+	},
+	{
+		"_id": ObjectId("58c42950c4044df709595578"),
+		"id": "2",
+		"subject": "Angular Routing",
+		"text": "Anyone found out how to do routing yet?",
+		"sender": ObjectId("58c767386f1d58ebc37af1ee")
+	},
+	{
+		"_id": ObjectId("58c42950c4044df709595579"),
+		"id": "3",
+		"subject": "Re: Angular Routing",
+		"text": "Udemy Angular 2 Routing shows you how",
+		"sender": ObjectId("58c767386f1d58ebc37af1ec")
+	}
+]
