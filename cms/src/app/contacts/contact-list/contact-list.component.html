@@ -20,7 +20,7 @@
 
   <div class="panel-body">
     <!--Looking at index here, not the contact ID's. That's why after you search the Id's get all messed up-->
-    <cms-contact-item *ngFor="let contact of contacts | contactsFilter:[term]; let i = index" [contact]="contact" [contactIdx]="i" (click)="onSelected(contact)"
+    <cms-contact-item *ngFor="let contact of contacts | contactsFilter:[term]; let i = index" [contact]="contact" [contactIdx]="contacts[i].contactId" (click)="onSelected(contact)"
                       dnd-draggable [dragEnabled]="true" [dragData]="contact"
                       [dropZones]="['demo1']"></cms-contact-item>
   </div>

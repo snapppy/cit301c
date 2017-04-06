@@ -83,7 +83,63 @@ router.get('/', function (req, res, next) {
 
 router.patch('/:id', function (req, res, next) {
 
-  var contact;
+  Contact.find().populate('_id').exec(function (err, contacts) {
+    if (err) {
+      return res.status(500).json({
+        title: 'Error getting contacts',
+        error: err
+      });
+    }
+
+    var groupIds = [];
+    for (var id in req.body.group) {
+      groupIds.push(req.body.group[id].contactId);
+    }
+
+    var groupObjectIds = [];
+
+    for (var i in contacts) {
+      for (var j in contacts) {
+        if (contacts[j].id == groupIds[i]) {
+          groupObjectIds.push(contacts[j]._id);
+        }
+      }
+    }
+
+    var contact;
+    for (var i in contacts) {
+      if (contacts[i].id == req.body.contactId) {
+         contact = contacts[i];
+      }
+    }
+
+    contact.name = req.body.name;
+      contact.email = req.body.email;
+      contact.phone = req.body.phone;
+      contact.imageUrl = req.body.imageUrl;
+      contact.group = groupObjectIds;
+
+    console.log("INSIDE PATCH");
+    console.log(contact);
+
+    contact.save(function (err, result) {
+      res.setHeader('Content-Type', 'application/json');
+
+      if (err) {
+        return res.status(500).json({
+          title: 'An error occured',
+          error: err
+        })
+      }
+
+      return res.status(200).json({
+        title: 'contact saved',
+        obj: contact
+      });
+
+    });
+  })
+  /*var contact;
 
   Contact.find().populate("_id").exec(function (err, contacts) {
     if (err) {
@@ -115,7 +171,7 @@ router.patch('/:id', function (req, res, next) {
       });
     });
   });
-
+*/
 });
 
 router.delete('/:id', function(req, res, next) {

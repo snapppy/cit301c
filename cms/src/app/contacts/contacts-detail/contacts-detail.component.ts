@@ -14,7 +14,7 @@ export class ContactsDetailComponent implements OnInit, OnDestroy {
   contact: Contact;
   subscription: Subscription;
   contactGroup: Contact[] = [];
-  contactIdx: number;
+  contactIdx: string;
   hasGroup: boolean = false;
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -27,7 +27,7 @@ export class ContactsDetailComponent implements OnInit, OnDestroy {
     this.subscription = this.activatedRoute.params.subscribe(
       (params: any) => {
         this.contactIdx = params['idx'];
-        this.contact = this.contactsService.getContact(this.contactIdx);
+        this.contact = this.contactsService.getContactById(this.contactIdx);
         this.contactGroup = this.contact.group;
       });
   }
