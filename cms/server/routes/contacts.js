@@ -29,7 +29,6 @@ router.post('/', function (req, res, next) {
     for (var i in contacts) {
       for (var j in contacts) {
         if (contacts[j].id == groupIds[i]) {
-          console.log("getting the id's");
           groupObjectIds.push(contacts[j]._id);
         }
       }
@@ -119,9 +118,6 @@ router.patch('/:id', function (req, res, next) {
       contact.imageUrl = req.body.imageUrl;
       contact.group = groupObjectIds;
 
-    console.log("INSIDE PATCH");
-    console.log(contact);
-
     contact.save(function (err, result) {
       res.setHeader('Content-Type', 'application/json');
 
@@ -139,39 +135,6 @@ router.patch('/:id', function (req, res, next) {
 
     });
   })
-  /*var contact;
-
-  Contact.find().populate("_id").exec(function (err, contacts) {
-    if (err) {
-      return res.status(500).json({
-        title: 'Error getting contacts',
-        error: err
-      });
-    }
-
-    for (var i in contacts) {
-      if (contacts[i].id == req.params.id) {
-        contact = contacts[i];
-      }
-    }
-
-    console.log("Here in contacts patch!");
-    console.log(contact);
-
-    contact.save(function(err, result) {
-      if (err) {
-        return res.status(500).json({
-          title: 'An error occurred',
-          error: err
-        });
-      }
-      res.status(200).json({
-        message: 'Updated contact',
-        obj: result
-      });
-    });
-  });
-*/
 });
 
 router.delete('/:id', function(req, res, next) {

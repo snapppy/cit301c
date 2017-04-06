@@ -6,12 +6,12 @@ var Sequence = require('../models/sequence');
 
 var maxDocumentId;
 var maxMessageId;
-var maxContactId = 0;
+var maxContactId;
 var sequenceId = null;
 
 function SequenceGenerator() {
 
-  Sequence.findOne()
+  Sequence.find()
     .exec(function (err, sequence) {
       if (err) {
         return res.status(500).json({
@@ -20,10 +20,10 @@ function SequenceGenerator() {
         });
       }
 
-      sequenceId = sequence._id;
-      maxDocumentId = sequence.maxDocumentId;
-      maxMessageId = sequence.maxMessageId;
-      maxContactId = sequence.maxContactId;
+      sequenceId = sequence[0]._id;
+      maxDocumentId = sequence[0].maxDocumentId;
+      maxMessageId = sequence[0].maxMessageId;
+      maxContactId = sequence[0].maxContactsId;
     });
 }
 

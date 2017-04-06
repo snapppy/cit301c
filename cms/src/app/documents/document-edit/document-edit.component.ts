@@ -51,6 +51,7 @@ export class DocumentEditComponent implements OnInit {
     } else {
       this.documentsService.addDocument(newDocument).subscribe();
     }
+    //add some event listener here to reload the list of docs automatically
 
     this.router.navigate(['documents']);
   }
