@@ -42,20 +42,27 @@ router.post('/', function (req, res, next) {
 });
 
 router.patch('/:id', function (req, res, next) {
-  Document.findById(req.params.id, function (err, document) {
+
+  var document;
+
+  Document.find().populate("_id").exec(function (err, documents) {
     if (err) {
       return res.status(500).json({
-        title: 'An error occurred',
+        title: 'Error getting documents',
         error: err
       });
     }
-    if (!document) {
-      return res.status(500).json({
-        title: 'No Document Found!',
-        error: {message: 'Document not found'}
-      });
+
+    for (var i in documents) {
+      if (documents[i].id == req.params.id) {
+        document = documents[i];
+      }
     }
-    document.content = req.body.content;
+
+    document.name= req.body.name;
+    document.id = req.body.id;
+    document.description = req.body.description;
+    document.url = req.body.url;
     document.save(function(err, result) {
       if (err) {
         return res.status(500).json({
@@ -73,26 +80,26 @@ router.patch('/:id', function (req, res, next) {
 
 router.delete('/:id', function(req, res, next) {
 
-  console.log("---in the delete router file---");
-  console.log(req.params.id);
+  var document;
 
-  Document.findById(req.params.id, function (err, document) {
+  Document.find().populate("_id").exec(function (err, documents) {
     if (err) {
       return res.status(500).json({
-        title: 'An error occurred',
+        title: 'Error getting documents',
         error: err
       });
     }
-    if (!document) {
-      return res.status(500).json({
-        title: 'No Document Found!',
-        error: {message: 'document not found'}
-      });
+
+    for (var i in documents) {
+      if (documents[i].id == req.params.id) {
+        document = documents[i];
+      }
     }
+
     document.remove(function(err, result) {
       if (err) {
         return res.status(500).json({
-          title: 'An error occurred',
+          title: 'Remove function error',
           error: err
         });
       }
@@ -101,7 +108,7 @@ router.delete('/:id', function(req, res, next) {
         obj: result
       });
     });
-  });
+  })
 });
 
 module.exports = router;

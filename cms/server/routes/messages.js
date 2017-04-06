@@ -30,8 +30,12 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
 
   var maxMessageId = sequenceGenerator.nextId("messages");
+  console.log("INSIDE MESSAGE POST");
+  console.log(req.body.sender);
+  console.log(req.body);
 
-  Contact.findOne({'id': req.body.sender}, {'id': 1}, function (err, contactId) {
+  Contact.findOne({'name': req.body.sender}, function (err, contactId) {
+    console.log(contactId);
     if (err || !contactId) {
       return res.status(500).json({
         title: 'Invalid sender - sender not found',
@@ -42,7 +46,7 @@ router.post('/', function (req, res, next) {
     var message = new Message({
       id: maxMessageId,
       subject: req.body.subject,
-      msgText: req.body.msgText,
+      text: req.body.text,
       sender: contactId
     });
 
@@ -50,9 +54,9 @@ router.post('/', function (req, res, next) {
     console.log(message);
 
     message.save(function (err, result) {
-      response.setHeader('Content-Type', 'application/json');
+      res.setHeader('Content-Type', 'application/json');
       if (err) {
-        return response.status(500).json({
+        return res.status(500).json({
           title: 'Error saving message',
           error: err
         });

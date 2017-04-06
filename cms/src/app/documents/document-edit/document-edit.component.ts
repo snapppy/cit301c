@@ -47,7 +47,7 @@ export class DocumentEditComponent implements OnInit {
 
     if (this.editMode) {
       newDocument.id = this.oldDocument.id;
-      this.documentsService.updateDocument(this.oldDocument, newDocument);
+      this.documentsService.updateDocument(this.oldDocument, newDocument).subscribe();
     } else {
       this.documentsService.addDocument(newDocument).subscribe();
     }

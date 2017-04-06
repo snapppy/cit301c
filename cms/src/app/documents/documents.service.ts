@@ -35,7 +35,7 @@ export class DocumentsService {
 
   deleteDocument (document: Document) {
     this.documents.splice(this.documents.indexOf(document), 1);
-    return this.http.delete('http://localhost:3000/documents' + document.id)
+    return this.http.delete('http://localhost:3000/documents/' + document.id)
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }
@@ -54,31 +54,10 @@ export class DocumentsService {
   }
 
   updateDocument(oldDoc: Document, newDoc: Document) {
-    const body = JSON.stringify(document);
+    const body = JSON.stringify(newDoc);
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.patch('http://localhost:3000/documents' + newDoc.id, body, {headers: headers})
+    return this.http.patch('http://localhost:3000/documents/' + newDoc.id, body, {headers: headers})
       .map((response: Response) => response.json())
       .catch((error: Response) => Observable.throw(error.json()));
   }
-
-  /*initDocuments() {
-    return this.http.get('https://jameswcms.firebaseio.com/documents.json')
-      .map((response: Response) => response.json())
-      .subscribe(
-        (data: Document[]) => {
-          this.documents = data;
-          this.getDocumentEmitter.emit(this.documents);
-        }
-
-      );
-  }*/
-
-  /*storeDocuments() {
-    const body = JSON.stringify(this.documents);
-    const headers = new Headers({
-      'Content-Type': 'application/json'
-    });
-    return this.http.put('https://jameswcms.firebaseio.com/documents.json',
-      body, {headers: headers}).toPromise();
-  }*/
 }

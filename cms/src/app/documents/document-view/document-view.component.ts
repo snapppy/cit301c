@@ -26,7 +26,9 @@ export class DocumentViewComponent implements OnInit, OnDestroy {
     this.subscription = this.activatedRoute.params.subscribe(
       (params: any) => {
        this.documentIdx = params['idx'];
+       console.log(this.documentIdx);
        this.document = this.documentsService.getDocument(this.documentIdx);
+       console.log(this.document);
       }
     )
   }

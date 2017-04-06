@@ -59,14 +59,13 @@ export class ContactEditComponent implements OnInit, OnDestroy {
 
     if (this.editMode) {
       newContact.contactId = this.contact.contactId;
-      this.contactsService.updateContact(this.contact, newContact);
+      this.contactsService.updateContact(this.contact, newContact).subscribe();
     } else {
       this.contactsService.addContact(newContact).subscribe(
         data => console.log(data),
         error => console.log(error)
       );
     }
-
     this.router.navigate(['contacts']);
   }
 
@@ -78,11 +77,6 @@ export class ContactEditComponent implements OnInit, OnDestroy {
     if (!newContact) {
       return true;
     }
-
-   /* if (this.contact.contactId) {
-      //newContact.contactId ===
-      return true;
-    }*/
 
     for (let i = 0; i < this.groupContacts.length; i++) {
       if (newContact.contactId === this.groupContacts[i].contactId) {

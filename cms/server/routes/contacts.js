@@ -10,8 +10,6 @@ var sequenceGenerator = require('./sequenceGenerator');
 router.post('/', function (req, res, next) {
 
   var maxContactId = sequenceGenerator.nextId("contacts");
-  console.log("-------------Contact max Id from sequence generator: -------------");
-  console.log(maxContactId);
 
   Contact.find().populate('_id').exec(function (err, contacts) {
     if (err) {
@@ -29,7 +27,6 @@ router.post('/', function (req, res, next) {
     var groupObjectIds = [];
 
     for (var i in contacts) {
-      //check to see if id matches
       for (var j in contacts) {
         if (contacts[j].id == groupIds[i]) {
           console.log("getting the id's");
@@ -37,8 +34,7 @@ router.post('/', function (req, res, next) {
         }
       }
     }
-    console.log("Group contact _id's");
-    console.log(groupObjectIds);
+
     var contact = new Contact ({
       id: maxContactId,
       name: req.body.name,
@@ -47,9 +43,6 @@ router.post('/', function (req, res, next) {
       imageUrl: req.body.imageUrl,
       group: groupObjectIds
     });
-
-    console.log("Inside the nested function");
-    console.log(contact);
 
     contact.save(function (err, result) {
       res.setHeader('Content-Type', 'application/json');
@@ -73,7 +66,7 @@ router.post('/', function (req, res, next) {
 });
 
 router.get('/', function (req, res, next) {
-  Contact.find().populate('_id').exec(function (err, contacts) {
+  Contact.find().populate('group').exec(function (err, contacts) {
     if (err) {
       return res.status(500).json({
         title: 'Error getting contacts',
@@ -89,20 +82,26 @@ router.get('/', function (req, res, next) {
 });
 
 router.patch('/:id', function (req, res, next) {
-  Contact.findById(req.params.id, function (err, contact) {
+
+  var contact;
+
+  Contact.find().populate("_id").exec(function (err, contacts) {
     if (err) {
       return res.status(500).json({
-        title: 'An error occurred',
+        title: 'Error getting contacts',
         error: err
       });
     }
-    if (!contact) {
-      return res.status(500).json({
-        title: 'No contact Found!',
-        error: {message: 'contact not found'}
-      });
+
+    for (var i in contacts) {
+      if (contacts[i].id == req.params.id) {
+        contact = contacts[i];
+      }
     }
-    contact.content = req.body.content;
+
+    console.log("Here in contacts patch!");
+    console.log(contact);
+
     contact.save(function(err, result) {
       if (err) {
         return res.status(500).json({
@@ -116,35 +115,39 @@ router.patch('/:id', function (req, res, next) {
       });
     });
   });
+
 });
 
 router.delete('/:id', function(req, res, next) {
-  Contact.findById(req.params.id, function (err, contact) {
+  var contact;
+
+  Contact.find().populate("_id").exec(function (err, contacts) {
     if (err) {
       return res.status(500).json({
-        title: 'An error occurred',
+        title: 'Error getting contacts',
         error: err
       });
     }
-    if (!contact) {
-      return res.status(500).json({
-        title: 'No Contact Found!',
-        error: {message: 'Contact not found'}
-      });
+
+    for (var i in contacts) {
+      if (contacts[i].id == req.params.id) {
+        contact = contacts[i];
+      }
     }
+
     contact.remove(function(err, result) {
       if (err) {
         return res.status(500).json({
-          title: 'An error occurred',
+          title: 'Remove function error',
           error: err
         });
       }
       res.status(200).json({
-        message: 'Deleted contact',
+        message: 'Deleted Contact',
         obj: result
       });
     });
-  });
+  })
 });
 
 module.exports = router;
